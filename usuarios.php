@@ -22,20 +22,45 @@ $res = $usuarios->getUsuarios();
 	<div class="container-fluid">
 		<?php include('header.php'); ?>
 		<div class="row">
-			<div class="col-md-6 mt-3">
+			<div class="col-md-8 mt-3">
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
 					<p class="alert alert-success">El rol se ha registrado correctamente</p>
 				<?php endif; ?>
 
+				<?php if(isset($_GET['mg'])): ?>
+					<p class="alert alert-success">El rol se ha eliminado correctamente</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['e'])): ?>
+					<p class="alert alert-danger">El dato no existe</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['er'])): ?>
+					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
+				<?php endif; ?>
+
 				<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover" style="margin-top: 8px">
+					<table class="table table-hover">
+						<tr>
+							<th>Nombre</th>
+							<th>Rol</th>
+							<th>Activo</th>
+						</tr>
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>
-									<a href="verusuario.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
+									<a href="verusuario.php?id=<?php echo $r['id']; ?>"><?php echo $r['usuario']; ?></a>
+								</td>
+								<td><?php echo $r['rol'] ?></td>
+								<td>
+									<?php if($r['active'] == 1): ?>
+										Si
+									<?php else: ?>
+										No
+									<?php endif; ?>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -48,6 +73,3 @@ $res = $usuarios->getUsuarios();
 	</div>
 </body>
 </html>
-
-   
-

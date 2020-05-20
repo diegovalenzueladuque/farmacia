@@ -16,7 +16,8 @@ if (isset($_GET['id'])) {
 
 
 	if (!$res) {
-		$mensaje = 'El dato consultado no existe';
+		$msg = 'error';
+		header('Location: usuarios.php?e=' . $msg);
 	}
 }
 
@@ -50,21 +51,16 @@ if (isset($_GET['id'])) {
 				<table class="table table-hover">
 					<tr>
 						<th>Usuario:</th>
-						<td><?php echo $res['nombre']; ?></td>
+						<td><?php echo $res['usuario']; ?></td>
+					</tr>
+					<tr>
+						<th>Rol:</th>
+						<td><?php echo $res['rol']; ?></td>
 					</tr>
 					<tr>
 						<th>Email:</th>
 						<td><?php echo $res['email']; ?></td>
 					</tr>
-					<tr>
-						<th>Contraseña:</th>
-						<td><?php echo $res['password']; ?></td>
-					</tr>
-					<tr>
-						<th>Rol:</th>
-						<td><?php echo $res['rol_id']; ?></td>
-					</tr>
-					
 					<tr>
 						<th>Fecha de creación:</th>
 						<td>
@@ -85,8 +81,9 @@ if (isset($_GET['id'])) {
 					</tr>
 				</table>
 				<p>
-					<a href="" class="btn btn-warning">Editar</a>
+					<a href="editUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
 					<a href="usuarios.php" class="btn btn-link">Volver</a>
+					<a href="delUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
 				</p>
 			</div>
 		</div>

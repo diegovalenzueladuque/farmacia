@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="roles.php">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -17,10 +17,11 @@
           Administración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="usuarios.php">Usuarios</a>
+          <a class="dropdown-item" href="roles.php">Roles</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="clientes.php">Clientes</a>
+          <a class="dropdown-item" href="marcas.php">Marcas</a>
         </div>
       </li>
       <li class="nav-item">

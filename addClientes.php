@@ -12,7 +12,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	$rut = strip_tags($_POST['rut']);
 	$direccion = strip_tags($_POST['dirección']);
 	$nacimiento = strip_tags($_POST['fecha_nacimiento']);
-	$persona = strip_tags($_POST['persona']);
+	$pers = strip_tags($_POST['persona']);
 
 	if (!$nombre) {
 		$mensaje = 'Ingrese el nombre del cliente';
@@ -22,7 +22,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		$mensaje = 'Ingrese dirreción del cliente';
 	}elseif(!$nacimiento){
 		$mensaje = 'Ingrese fecha de nacimiento del cliente';
-	}elseif(!$persona){
+	}elseif(!$pers){
 		$mensaje = 'Ingrese tipo de persona';
 	}else{
 
@@ -31,12 +31,12 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		$res = $clientes->getClienteRut($rut);
 		$res = $clientes->getClienteDireccion($direccion);
 		$res = $clientes->getClienteFnac($nacimiento);
-		$res = $clientes->getClientePersona($persona);
+		//$res = $clientes->getClientePersona($pers);
 
 		if ($res) {
 			$mensaje = 'El cliente ingresado ya existe';
 		}else{
-			$res = $clientes->setCliente($nombre,$rut,$direccion,$nacimiento,$persona);
+			$res = $clientes->setClientes($nombre, $rut, $direccion, $nacimiento, $pers);
 
 			if ($res) {
 				$msg = 'ok';
@@ -85,7 +85,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 					</div>
 					<div class="form-group">
 						<label>Tipo de persona</label>
-						<input type="text" name="persona" value="<?php echo @($persona); ?>" placeholder="Ingrese tipo de persona (1 = Natural o 2 = Empresa)" class="form-control">
+						<input type="text" name="persona" value="<?php echo @($pers); ?>" placeholder="Ingrese tipo de persona (1 = Natural o 2 = Empresa)" class="form-control">
 					</div>
 					
 					<div class="form-group">

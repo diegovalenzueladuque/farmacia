@@ -29,8 +29,16 @@ $res = $roles->getRoles();
 					<p class="alert alert-success">El rol se ha registrado correctamente</p>
 				<?php endif; ?>
 
+				<?php if(isset($_GET['mg'])): ?>
+					<p class="alert alert-success">El rol se ha eliminado correctamente</p>
+				<?php endif; ?>
+
 				<?php if(isset($_GET['e'])): ?>
 					<p class="alert alert-danger">El dato no existe</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['er'])): ?>
+					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
 				<?php endif; ?>
 
 				<a href="addRoles.php" class="btn btn-success">Nuevo Rol</a>

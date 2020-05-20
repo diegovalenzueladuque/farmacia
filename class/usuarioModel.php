@@ -1,78 +1,109 @@
- <?php
+<?php
 require('modelo.php');
 
-class usuarioModel extends Modelo
-{
+class usuarioModel extends Modelo{
+
 	public function __construct(){
 		//disponemos de lo declarado en el constructor de la clase modelo
 		parent::__construct();
 	}
 
-	//traemos todos los roles de la tabla roles
+	//metodo que muestra todos los usuarios
 	public function getUsuarios(){
-		//consulta a la tabla roles usando el objeto db de la clase modelo
-		$usuarios = $this->_db->query("SELECT id, nombre, email FROM usuarios ORDER BY nombre");
+		$usu = $this->_db->query("SELECT u.id, u.nombre as usuario, r.nombre as rol, u.active FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id ORDER BY u.nombre");
 
-		//retornamos lo que haya en la tabla roles
-		return $usuarios->fetchAll();
+		return $usu->fetchall();
 	}
 
+	//metodo que muestra un usuario por id
 	public function getUsuarioId($id){
 		$id = (int) $id;
 
-		$usuario = $this->_db->prepare("SELECT id, nombre, email, password, rol_id, created_at, updated_at FROM usuarios WHERE id = ?");
-		$usuario->bindParam(1, $id);
-		$usuario->execute();
+		$usu = $this->_db->prepare("SELECT u.id, u.nombre as usuario, r.nombre as rol, u.active, u.email, u.created_at, u.updated_at FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id WHERE u.id = ?");
+		$usu->bindParam(1, $id);
+		$usu->execute();
 
-		return $usuario->fetch();
+		return $usu->fetch();
 	}
 
-	public function getUsuarioNombre($nombre){
-		$usuario = $this->_db->prepare("SELECT id FROM usuarios WHERE nombre = ?");
-		$usuario->bindParam(1, $nombre);
-		$usuario->execute();
-
-		return $usuario->fetch();
-	}
-
+	//metodo que verifica que un usuario este registrado
 	public function getUsuarioEmail($email){
-		$usuario = $this->_db->prepare("SELECT id FROM usuarios WHERE email = ?");
-		$usuario->bindParam(1, $email);
-		$usuario->execute();
+		$usu = $this->_db->prepare("SELECT id FROM usuarios WHERE email = ?");
+		$usu->bindParam(1, $email);
+		$usu->execute();
 
-		return $usuario->fetch();
+		return $usu->fetch();
 	}
 
-	public function getUsuarioPass($password){
-		$usuario = $this->_db->prepare("SELECT id FROM usuarios WHERE password = ?");
-		$usuario->bindParam(1, $password);
-		$usuario->execute();
+	//metodo que verifique usuario y contraseña de un usuario
+	public function getUsuarioRegistrado($email, $clave){
+		$clave = sha1($clave);
 
-		return $usuario->fetch();
-	}
-	
-	public function getUsuarioRol($rolid){
-		$rolid = (int) $rolid;
+		$usu = $this->_db->prepare("SELECT id, nombre, email FROM usuarios WHERE email = ? and password = ?");
+		$usu->bindParam(1, $email);
+		$usu->bindParam(2, $clave);
+		$usu->execute();
 
-		$usuario = $this->_db->prepare("SELECT id FROM usuarios WHERE nombre = ?");
-		$usuario->bindParam(1, $rolid);
-		$usuario->execute();
-
-		return $usuario->fetch();
+		return $usu->fetch();
 	}
 
-	
+	//metodo para insertar usuarios
+	public function setUsuario($nombre, $email, $clave, $rol){
+		$rol = (int) $rol;
+		$clave = sha1($clave);
 
-	public function setUsuarios($nombre, $email, $password, $rolid){
-		$usuario = $this->_db->prepare("INSERT INTO usuarios VALUES(null, ?, ?, md5(?), ?, now(), now())");
-		$usuario->bindParam(1,$nombre);//definimos el valor de cada ?
-		$usuario->bindParam(2,$email);
-		$usuario->bindParam(3,$password);
-		$usuario->bindParam(4,$rolid);
-		
-		$usuario->execute();//ejecutamos la consulta
+		//activo = 1 y 2 = inactivo
 
-		$row = $usuario->rowCount(); //devuelve la cantidad de registros insertados
+		$usu = $this->_db->prepare("INSERT INTO usuarios VALUES(null, ?, ?, ?, ?, 1, now(), now())");
+		$usu->bindParam(1, $nombre);
+		$usu->bindParam(2, $email);
+		$usu->bindParam(3, $clave);
+		$usu->bindParam(4, $rol);
+		$usu->execute();
+
+		$row = $usu->rowCount();
 		return $row;
+	}
+
+	//metodo para editar usuario
+	public function editUsuario($id, $nombre, $email, $rol, $active){
+		$rol = (int) $rol;
+
+		$usu = $this->_db->prepare("UPDATE usuarios SET nombre = ?, email = ?, rol_id = ?, active = ?, updated_at = now() WHERE id = ?");
+		$usu->bindParam(1, $nombre);
+		$usu->bindParam(2, $email);
+		$usu->bindParam(3, $rol);
+		$usu->bindParam(4, $active);
+		$usu->execute();
+
+		$row = $usu->rowCount();
+		return $row;
+	}
+
+	//metodo para cambiar password
+	public function editPassword($id, $clave){
+		$id = (int) $id;
+		$clave = sha1($clave);
+
+		$usu = $this->_db->prepare("UPDATE usuarios SET password = ? WHERE id = ?");
+		$usu->bindParam(1, $clave);
+		$usu->bindParam(2, $id);
+		$usu->execute();
+
+		$row = $usu->rowCount();
+		return $row;
+	}
+
+	public function deleteUsuarios($id){
+		$id = (int) $id;
+
+		$usu =$this->_db->prepare("DELETE FROM usuarios WHERE id = ?");
+		$usu->bindParam(1, $id);
+		$usu->execute();
+
+		$row = $usu->rowCount();
+
+		return $row;
+
 	}
 }

@@ -93,8 +93,9 @@ if (isset($_GET['id'])) {
 					</tr>
 				</table>
 				<p>
-					<a href="" class="btn btn-warning">Editar</a>
+					<a href="editCliente.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
 					<a href="clientes.php" class="btn btn-link">Volver</a>
+					<a href="delcliente.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
 				</p>
 			</div>
 		</div>

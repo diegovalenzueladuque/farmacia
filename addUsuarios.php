@@ -10,31 +10,31 @@ print_r($_POST);
 if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	$nombre = strip_tags($_POST['nombre']);
 	$email = strip_tags($_POST['email']);
-	$password = strip_tags($_POST['password']);
-	$rolid = strip_tags($_POST['rol_id']);
+	$clave = strip_tags($_POST['password']);
+	$rol = strip_tags($_POST['rol_id']);
 	
 
 	if (!$nombre) {
 		$mensaje = 'Ingrese el nombre del usuario';
 	}elseif(!$email){
 		$mensaje = 'Ingrese mail válido';
-	}elseif(!$password){
+	}elseif(!$clave){
 		$mensaje = 'Ingrese contraseña';
-	}elseif(!$rolid){
+	}elseif(!$rol){
 		$mensaje = 'Ingrese rol';
 	}else{
 
 		//consulta por la existencia del rol ingresao
-		$res = $usuarios->getUsuarioNombre($nombre);
+		//$res = $usuarios->getUsuarioNombre($nombre);
 		$res = $usuarios->getUsuarioEmail($email);
-		$res = $usuarios->getUsuarioPass($password);
-		$res = $usuarios->getUsuarioRol($rolid);
+		$res = $usuarios->getUsuarioRegistrado($email, $clave);
+		//$res = $usuarios->getUsuarioRol($rolid);
 		
 
 		if ($res) {
 			$mensaje = 'El usuario ingresado ya existe';
 		}else{
-			$res = $usuarios->setUsuarios($nombre,$email,$password,$rolid);
+			$res = $usuarios->setUsuario($nombre, $email, $clave, $rol);
 
 			if ($res) {
 				$msg = 'ok';
@@ -75,11 +75,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="text" name="password" value="<?php echo @($password); ?>" placeholder="Ingrese una contraseña" class="form-control">
+						<input type="text" name="password" value="<?php echo @($clave); ?>" placeholder="Ingrese una contraseña" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Rol</label>
-						<input type="text" name="rol_id" value="<?php echo @($rolid); ?>" placeholder="Ingrese rol del usuario" class="form-control">
+						<input type="text" name="rol_id" value="<?php echo @($rol); ?>" placeholder="Ingrese rol del usuario" class="form-control">
 					</div>
 					
 					
