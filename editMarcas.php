@@ -19,6 +19,25 @@ if (isset($_GET['id'])) {
 		$msg = 'error';
 		header('Location: marcas.php?e=' . $msg);
 	}
+
+	if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
+		//sanitizamos el dato
+		//print_r($_POST);exit;
+		$nombre = trim(strip_tags($_POST['nombre']));
+
+		if (!$nombre) {
+			$mensaje = 'Ingrese el nombre de la marca';
+		}else{
+			//print_r($id);exit;
+			//actualizamos el rol
+			$sql = $marca->editMarcas($id, $nombre);
+			//print_r($res);exit;
+			if ($sql) {
+				$msg = 'ok';
+				header('Location: verMarca.php?m=' . $msg . '&id=' . $id);
+			}
+		}
+	}
 }
 
 //print_r($res);
@@ -48,35 +67,17 @@ if (isset($_GET['id'])) {
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
 
-				<table class="table table-hover">
-					<tr>
-						<th>Rol:</th>
-						<td><?php echo $res['nombre']; ?></td>
-					</tr>
-					<tr>
-						<th>Fecha de creación:</th>
-						<td>
-							<?php
-								$fecha_reg = new DateTime($res['created_at']);
-								echo $fecha_reg->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de modificación:</th>
-						<td>
-							<?php
-								$fecha_mod = new DateTime($res['updated_at']);
-								echo $fecha_mod->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<a href="editMarcas.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
-					<a href="marcas.php" class="btn btn-link">Volver</a>
-					<a href="delMarca.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
-				</p>
+				<form action="" method="post">
+					<div class="form-group">
+						<label>Nombre de la marca</label>
+						<input type="text" name="nombre" value="<?php echo $res['nombre']; ?>" placeholder="Nombre de la marca" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="hidden" name="enviar" value="si">
+						<button type="submit" class="btn btn-success">Modificar</button>
+						<a href="marcas.php" class="btn btn-link">Volver</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

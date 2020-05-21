@@ -29,6 +29,18 @@ $res = $marcas->getMarcas();
 					<p class="alert alert-success">La marca se ha registrado correctamente</p>
 				<?php endif; ?>
 
+				<?php if(isset($_GET['mg'])): ?>
+					<p class="alert alert-success">La marca se ha eliminado correctamente</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['e'])): ?>
+					<p class="alert alert-danger">El dato no existe</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['er'])): ?>
+					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
+				<?php endif; ?>
+
 				<a href="addMarcas.php" class="btn btn-success">Nueva Marca</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover" style="margin-top: 8px">

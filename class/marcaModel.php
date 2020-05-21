@@ -43,4 +43,31 @@ class marcaModel extends Modelo
 		$row = $marca->rowCount(); //devuelve la cantidad de registros insertados
 		return $row;
 	}
+
+	public function editMarcas($id, $nombre){
+		//print_r($nombre);exit;
+		$id = (int) $id;
+
+		$marca = $this->_db->prepare("UPDATE marcas SET nombre = ?, updated_at = now() WHERE id = ?");
+		$marca->bindParam(1, $nombre);
+		$marca->bindParam(2, $id);
+		$marca->execute();
+
+		$row = $marca->rowCount(); //devuelve la cantidad de registros modificadas
+		//print_r($row);exit;
+		return $row;
+	}
+
+	public function deleteMarcas($id){
+		$id = (int) $id;
+
+		$marca =$this->_db->prepare("DELETE FROM marcas WHERE id = ?");
+		$marca->bindParam(1, $id);
+		$marca->execute();
+
+		$row = $marca->rowCount();
+
+		return $row;
+
+	}
 }
