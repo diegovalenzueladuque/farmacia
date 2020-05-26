@@ -11,11 +11,32 @@ $categorias = new catModel;
 if (isset($_GET['id'])) {
 	//recuperamos y sanitizamos el dato que viene por cabecera
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+	//$id = (int) $id;
 
 	$res = $categorias->getCategoriaId($id);
 
 	if (!$res) {
-		$mensaje = 'El dato consultado no existe';
+		$msg = 'error';
+		header('Location: categorias.php?e=' . $msg);
+	}
+
+	if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
+		//sanitizamos el dato
+		//print_r($_POST);exit;
+		$nombre = trim(strip_tags($_POST['nombre']));
+
+		if (!$nombre) {
+			$mensaje = 'Ingrese el nombre de la marca';
+		}else{
+			//print_r($id);exit;
+			//actualizamos el rol
+			$sql = $marca->editCategorias($id, $nombre);
+			//print_r($res);exit;
+			if ($sql) {
+				$msg = 'ok';
+				header('Location: verMarca.php?m=' . $msg . '&id=' . $id);
+			}
+		}
 	}
 }
 
@@ -26,7 +47,7 @@ if (isset($_GET['id'])) {
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Categoria</title>
+	<title>Categorías</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -39,46 +60,24 @@ if (isset($_GET['id'])) {
 				<h3>Categoría</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">La categoría se ha modificado correctamente</p>
+					<p class="alert alert-success">La marca se ha modificado correctamente</p>
 				<?php endif; ?>
 
 				<?php if(isset($mensaje)): ?>
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
 
-				<table class="table table-hover">
-					<tr>
-						<th>Categoría:</th>
-						<td><?php echo $res['nombre']; ?></td>
-					</tr>
-					<tr>
-						<th>Código:</th>
-						<td><?php echo $res['código']; ?></td>
-					</tr>
-					<tr>
-						<th>Fecha de creación:</th>
-						<td>
-							<?php
-								$fecha_reg = new DateTime($res['created_at']);
-								echo $fecha_reg->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>Fecha de modificación:</th>
-						<td>
-							<?php
-								$fecha_mod = new DateTime($res['updated_at']);
-								echo $fecha_mod->format('d-m-Y H:i:s');
-							?>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<a href="editcategorias.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
-					<a href="categorias.php" class="btn btn-link">Volver</a>
-					<a href="delcategorias.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
-				</p>
+				<form action="" method="post">
+					<div class="form-group">
+						<label>Nombre de la marca</label>
+						<input type="text" name="nombre" value="<?php echo $res['nombre']; ?>" placeholder="Nombre de la marca" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="hidden" name="enviar" value="si">
+						<button type="submit" class="btn btn-success">Modificar</button>
+						<a href="categorias.php" class="btn btn-link">Volver</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

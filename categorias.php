@@ -26,7 +26,15 @@ $res = $categorias->getCategorias();
 				<h3>Categorías</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha registrado correctamente</p>
+					<p class="alert alert-success">La categoría se ha registrado correctamente</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['mg'])): ?>
+					<p class="alert alert-success">La categoría se ha eliminado correctamente</p>
+				<?php endif; ?>
+
+				<?php if(isset($_GET['er'])): ?>
+					<p class="alert alert-danger">La categoría no se ha podido eliminar</p>
 				<?php endif; ?>
 
 				<a href="addCategorias.php" class="btn btn-success">Nueva Categoría</a>

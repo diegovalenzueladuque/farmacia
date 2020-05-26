@@ -52,4 +52,31 @@ class catModel extends Modelo
 		$row = $categoria->rowCount(); //devuelve la cantidad de registros insertados
 		return $row;
 	}
+
+	public function editCategorias($id, $nombre){
+		//print_r($nombre);exit;
+		$id = (int) $id;
+
+		$categoria = $this->_db->prepare("UPDATE categorías SET nombre = ?, updated_at = now() WHERE id = ?");
+		$categoria->bindParam(1, $nombre);
+		$categoria->bindParam(2, $id);
+		$categoria->execute();
+
+		$row = $categoria->rowCount(); //devuelve la cantidad de registros modificadas
+		//print_r($row);exit;
+		return $row;
+	}
+
+	public function deleteCategorias($id){
+		$id = (int) $id;
+
+		$categoria = $this->_db->prepare("DELETE FROM categorías WHERE id = ?");
+		$categoria->bindParam(1, $id);
+		$categoria->execute();
+
+		$row = $categoria->rowCount();
+
+		return $row;
+
+	}
 }
