@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #083597; border-radius: 10px">
-  <a class="navbar-brand" href="#">Farmacia</a>
+  <a class="navbar-brand" href="index.php">Farmacia</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,7 +10,11 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <?php if(!isset($_SESSION['autenticado'])): ?>
+        <a class="nav-link" href="login.php">Iniciar sesión</a>
+        <?php else: ?>
+          <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
+        <?php endif; ?>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,6 +26,8 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="clientes.php">Clientes</a>
           <a class="dropdown-item" href="marcas.php">Marcas</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="categorias.php">Categorías</a>
         </div>
       </li>
       <li class="nav-item">

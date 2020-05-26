@@ -2,43 +2,51 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+require('class/rolModel.php');
 require('class/usuarioModel.php');
 //creamos una instancia de la clase rolModel
+$roles = new rolModel;
 $usuarios = new usuarioModel;
 
-print_r($_POST);
+//print_r($_POST);
 if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
-	$nombre = strip_tags($_POST['nombre']);
-	$email = strip_tags($_POST['email']);
-	$clave = strip_tags($_POST['password']);
-	$rol = strip_tags($_POST['rol_id']);
+	$nombre = trim(strip_tags($_POST['nombre']));
+	$email = trim(strip_tags($_POST['email']));
+	$rol = (int) $_POST['rol'];
+	$clave = trim(strip_tags($_POST['password']));
+	$reclave = trim(strip_tags($_POST['repassword']));
 	
 
 	if (!$nombre) {
 		$mensaje = 'Ingrese el nombre del usuario';
-	}elseif(!$email){
+	}elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 		$mensaje = 'Ingrese mail válido';
-	}elseif(!$clave){
-		$mensaje = 'Ingrese contraseña';
 	}elseif(!$rol){
-		$mensaje = 'Ingrese rol';
+		$mensaje = 'Seleccione rol';
+	}elseif(!$clave || strlen($clave) < 8){
+		$mensaje = 'la contraseña del usuario debe tener al menos 8 caracteres';
+	}elseif($clave != $reclave){
+		$mensaje = 'Contraseña no coincide';
 	}else{
 
-		//consulta por la existencia del rol ingresao
-		//$res = $usuarios->getUsuarioNombre($nombre);
+	
 		$res = $usuarios->getUsuarioEmail($email);
-		$res = $usuarios->getUsuarioRegistrado($email, $clave);
-		//$res = $usuarios->getUsuarioRol($rolid);
+		
 		
 
 		if ($res) {
 			$mensaje = 'El usuario ingresado ya existe';
 		}else{
-			$res = $usuarios->setUsuario($nombre, $email, $clave, $rol);
+			
+			$sql = $usuarios->setUsuario($nombre, $email, $clave, $rol);
 
-			if ($res) {
-				$msg = 'ok';
+			if ($sql) {
+				$msg = 'OK';
 				header('Location: usuarios.php?m=' . $msg);
+				# code...
+			}else{
+				$msg = 'error';
+				header('Location: usuarios.php?e=' . $msg);
 			}
 		}
 	}
@@ -67,19 +75,34 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 				<form action="" method="post">
 					<div class="form-group">
 						<label>Nombre del Usuario</label>
-						<input type="text" name="nombre" value="<?php echo @($nombre); ?>" placeholder="Ingrese nombre del usuario" class="form-control">
+						<input type="nombre" name="nombre" value="<?php echo @($nombre); ?>" placeholder="Ingrese nombre del usuario" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Email del Usuario</label>
-						<input type="text" name="email" value="<?php echo @($email); ?>" placeholder="Ingrese email del usuario" class="form-control">
+						<input type="email" name="email" value="<?php echo @($email); ?>" placeholder="Ingrese email del usuario" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label>Rol</label>
+						<select name="rol" class="form-control">
+							<option value="">Seleccione...</option>
+							<?php
+								$res = $roles->getRoles();
+								foreach ($res as $r ): 
+							?>
+							<option value="<?php echo $r['id']; ?>"><?php echo $r ['nombre']; ?></option>
+						<?php endforeach ?>
+
+						</select>
+						
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="text" name="password" value="<?php echo @($clave); ?>" placeholder="Ingrese una contraseña" class="form-control">
+						<input type="password" name="password" value="<?php echo @($clave); ?>" placeholder="Ingrese una contraseña" class="form-control">
 					</div>
 					<div class="form-group">
-						<label>Rol</label>
-						<input type="text" name="rol_id" value="<?php echo @($rol); ?>" placeholder="Ingrese rol del usuario" class="form-control">
+						<label>Confirme Password</label>
+						<input type="password" name="repassword" value="<?php echo @($reclave); ?>" placeholder="Confirme contraseña" class="form-control">
 					</div>
 					
 					

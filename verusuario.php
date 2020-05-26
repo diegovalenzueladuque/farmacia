@@ -2,21 +2,23 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require('class/usuarioModel.php');
+require_once('class/usuarioModel.php');
+require_once('class/rolModel.php');
 //creamos una instancia de la clase rolModel
 $usuarios = new usuarioModel;
+$roles = new rolModel;
 
 //print_r($_GET);
 
 if (isset($_GET['id'])) {
 	//recuperamos y sanitizamos el dato que viene por cabecera
-	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+	$id = (int) $_GET['id'];
 
 	$res = $usuarios->getUsuarioId($id);
 
 
 	if (!$res) {
-		$msg = 'error';
+		$msg = 'El dato no existe';
 		header('Location: usuarios.php?e=' . $msg);
 	}
 }
@@ -54,12 +56,20 @@ if (isset($_GET['id'])) {
 						<td><?php echo $res['usuario']; ?></td>
 					</tr>
 					<tr>
+						<th>Email:</th>
+						<td><?php echo $res['email']; ?></td>
+					</tr>
+					<tr>
 						<th>Rol:</th>
 						<td><?php echo $res['rol']; ?></td>
 					</tr>
 					<tr>
-						<th>Email:</th>
-						<td><?php echo $res['email']; ?></td>
+						<th>Activo:</th>
+						<td><?php if($res['active'] == 1): ?>
+										Si
+									<?php else: ?>
+										No
+									<?php endif; ?></td>
 					</tr>
 					<tr>
 						<th>Fecha de creación:</th>

@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
+session_start();
 require('class/usuarioModel.php');
 //creamos una instancia de la clase rolModel
 $usuarios = new usuarioModel;
@@ -26,24 +26,24 @@ $res = $usuarios->getUsuarios();
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha registrado correctamente</p>
+					<p class="alert alert-success">El usuario se ha registrado correctamente</p>
 				<?php endif; ?>
 
 				<?php if(isset($_GET['mg'])): ?>
-					<p class="alert alert-success">El rol se ha eliminado correctamente</p>
+					<p class="alert alert-success">El ususario se ha eliminado correctamente</p>
 				<?php endif; ?>
 
 				<?php if(isset($_GET['e'])): ?>
-					<p class="alert alert-danger">El dato no existe</p>
+					<p class="alert alert-danger">El usuario no existe</p>
 				<?php endif; ?>
 
 				<?php if(isset($_GET['er'])): ?>
-					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
+					<p class="alert alert-danger">El usuario no ha podido ser eliminado</p>
 				<?php endif; ?>
 
 				<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover">
+					<table class="table table-hover" style="margin-top: 8px">
 						<tr>
 							<th>Nombre</th>
 							<th>Rol</th>
