@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
+session_start();
 require_once('class/usuarioModel.php');
 require_once('class/rolModel.php');
 //creamos una instancia de la clase rolModel
@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,13 +42,8 @@ if (isset($_GET['id'])) {
 			<div class="col-md-6 mt-3">
 				<h3>Usuario</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El usuario se ha modificado correctamente</p>
-				<?php endif; ?>
+				<?php include('mensajes.php'); ?>
 
-				<?php if(isset($mensaje)): ?>
-					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
-				<?php endif; ?>
 
 				<table class="table table-hover">
 					<tr>
@@ -100,3 +95,6 @@ if (isset($_GET['id'])) {
 	</div>
 </body>
 </html>
+<?php else: ?>
+	<p class="text-info">Acceso restringido</p>
+<?php endif; ?>

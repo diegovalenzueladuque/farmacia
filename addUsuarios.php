@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
+session_start();
 require('class/rolModel.php');
 require('class/usuarioModel.php');
 //creamos una instancia de la clase rolModel
@@ -41,17 +41,17 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$sql = $usuarios->setUsuario($nombre, $email, $clave, $rol);
 
 			if ($sql) {
-				$msg = 'OK';
+				$_SESSION['success'] = 'El usuario se ha registrado correctamente';
 				header('Location: usuarios.php?m=' . $msg);
 				# code...
 			}else{
-				$msg = 'error';
+				$_SESSION['danger'] = 'El usuario no se ha registrado';
 				header('Location: usuarios.php?e=' . $msg);
 			}
 		}
 	}
 }
-
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,3 +117,6 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	</div>
 </body>
 </html>
+<?php else: ?>
+	<p class="text-info">Acceso restringido</p>
+<?php endif; ?>

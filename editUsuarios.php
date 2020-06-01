@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
+session_start();
 require('class/rolModel.php');
 require('class/usuarioModel.php');
 
@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
 
 	}
 
-	print_r($_POST);
+	//print_r($_POST);
 	if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		$nombre = trim(strip_tags($_POST['nombre']));
 		$email = trim(strip_tags($_POST['email']));
@@ -37,30 +37,21 @@ if (isset($_GET['id'])) {
 		}elseif (!$rol) {
 			$mensaje = 'Seleccione el rol del usuario';
 		}elseif (!$active) {
-			$mensaje = 'Seleccione estado';
+			$mensaje = 'Seleccione opción de estado';
 		}else{
 			//verificar que el usuario no se haya registrado previamente
-			$res = $usuarios->getUsuarioEmail($email);
-
+			$res = $usuarios->editUsuario($id, $nombre, $email, $rol, $active);
 			if ($res) {
-				$mensaje = 'El usuario ingresado ya existe';
-			}else{
-				//enviar los datos a la base de datos
-				$sql = $usuarios->editUsuario($nombre, $email, $rol, $active);
-
-				if ($sql) {
-					$msg = 'ok';
-					header('Location: usuarios.php?m=' . $msg);
-				}else{
-					$msg = 'error';
-					header('Location: usuarios.php?e=' . $msg);
-				}
+				$_SESSION['success'] = 'El usuario se ha modificado correctamente';
+				header('Location: verusuario.php?id=' . $id);
+				# code...
 			}
+
 		}
 	}
 }
 
-
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 
 ?>
 <!DOCTYPE html>
@@ -121,4 +112,6 @@ if (isset($_GET['id'])) {
 	</div>
 </body>
 </html>
-
+<?php else: ?>
+	<p class="text-info">Acceso restringido</p>
+<?php endif; ?>

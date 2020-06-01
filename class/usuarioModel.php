@@ -39,7 +39,7 @@ class usuarioModel extends Modelo{
 	public function getUsuarioRegistrado($email, $clave){
 		$clave = sha1($clave);
 
-		$usu = $this->_db->prepare("SELECT id, nombre, email FROM usuarios WHERE email = ? and password = ?");
+		$usu = $this->_db->prepare("SELECT u.id, u.nombre, u.email, r.nombre as rol FROM usuarios u INNER JOIN roles r ON u.rol_id = r.id WHERE u.email = ? AND u.password = ? AND u.active = 1");
 		$usu->bindParam(1, $email);
 		$usu->bindParam(2, $clave);
 		$usu->execute();
@@ -68,13 +68,14 @@ class usuarioModel extends Modelo{
 	//metodo para editar usuario
 	public function editUsuario($id, $nombre, $email, $rol, $active){
 		$rol = (int) $rol;
-		$active = (int) $active;
+		//$active = (int) $active;
 
 		$usu = $this->_db->prepare("UPDATE usuarios SET nombre = ?, email = ?, rol_id = ?, active = ?, updated_at = now() WHERE id = ?");
 		$usu->bindParam(1, $nombre);
 		$usu->bindParam(2, $email);
 		$usu->bindParam(3, $rol);
 		$usu->bindParam(4, $active);
+		$usu->bindParam(5, $id);
 		$usu->execute();
 
 		$row = $usu->rowCount();

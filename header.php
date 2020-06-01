@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #083597; border-radius: 10px">
   <a class="navbar-brand" href="index.php">Farmacia</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +17,7 @@
           <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
         <?php endif; ?>
       </li>
+      <?php if(isset($_SESSION['autenticado']) && $_SESSION['rol']== 'Administrador'): ?>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administración
@@ -30,6 +32,7 @@
           <a class="dropdown-item" href="categorias.php">Categorías</a>
         </div>
       </li>
+    <?php endif; ?>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>

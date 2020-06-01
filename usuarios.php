@@ -7,7 +7,7 @@ require('class/usuarioModel.php');
 $usuarios = new usuarioModel;
 $res = $usuarios->getUsuarios();
 //print_r($res);
-
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,21 +25,8 @@ $res = $usuarios->getUsuarios();
 			<div class="col-md-8 mt-3">
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El usuario se ha registrado correctamente</p>
-				<?php endif; ?>
+				<?php include('mensajes.php'); ?>
 
-				<?php if(isset($_GET['mg'])): ?>
-					<p class="alert alert-success">El ususario se ha eliminado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['e'])): ?>
-					<p class="alert alert-danger">El usuario no existe</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['er'])): ?>
-					<p class="alert alert-danger">El usuario no ha podido ser eliminado</p>
-				<?php endif; ?>
 
 				<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>
@@ -73,3 +60,6 @@ $res = $usuarios->getUsuarios();
 	</div>
 </body>
 </html>
+<?php else: ?>
+	<p class="text-info">Acceso restringido</p>
+<?php endif; ?>

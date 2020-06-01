@@ -6,21 +6,21 @@ session_start();
 require('class/usuarioModel.php');
 
 
-//print_r($res);
+//print_r($POST);
 if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	//creamos una instancia de la clase rolModel y usuarioModel
 	$usuarios = new usuarioModel;
 
 	$email = trim(strip_tags($_POST['email']));
-	$password = trim(strip_tags($_POST['password']));
+	$clave = trim(strip_tags($_POST['password']));
 
 	if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		$mensaje = 'Ingresa tu email';
-	}elseif (!$password) {
+	}elseif (!$clave) {
 		$mensaje = 'Ingresa tu password';
 	}else{
 		//verificar que el usuario este registrado
-		$res = $usuarios->getUsuarioRegistrado($email, $password);
+		$res = $usuarios->getUsuarioRegistrado($email, $clave);
 
 		if ($res) {
 			//inicio de session
@@ -28,7 +28,8 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$_SESSION['id'] = $res['id'];//esta variable de session guarda el id del usuario registrado
 			$_SESSION['nombre'] = $res['nombre'];//esta variable de session guarda el nombre del usuario
 			$_SESSION['email'] = $res['email'];//esta variable de session guarda el email del usuario
-
+			$_SESSION['rol'] = $res['rol'];
+			
 			header('Location: index.php');
 		}else{
 			$mensaje = 'El usuario o el password no son correctos';
