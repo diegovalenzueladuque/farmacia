@@ -1,5 +1,5 @@
  <?php
-require('modelo.php');
+require_once('modelo.php');
 
 class prodModel extends Modelo
 {
@@ -11,7 +11,7 @@ class prodModel extends Modelo
 	//traemos todos los roles de la tabla roles
 	public function getProductos(){
 		//consulta a la tabla roles usando el objeto db de la clase modelo
-		$productos = $this->_db->query("SELECT id, nombre, código FROM productos ORDER BY nombre");
+		$productos = $this->_db->query("SELECT p.id, p.nombre AS producto, c.nombre AS categoria, m.nombre AS marca FROM productos p INNER JOIN categorías c ON p.categoria_id = c.id INNER JOIN marcas m ON p.marca_id = m.id ORDER BY p.nombre;");
 
 		//retornamos lo que haya en la tabla roles
 		return $productos->fetchAll();
@@ -20,7 +20,7 @@ class prodModel extends Modelo
 	public function getProductoId($id){
 		$id = (int) $id;
 
-		$producto = $this->_db->prepare("SELECT id, nombre, código, categoria_id, marca_id, descripción, created_at, updated_at FROM productos WHERE id = ?");
+		$producto = $this->_db->prepare("SELECT p.id, p.nombre AS producto, p.código AS codigo, p.descripción AS descripcion, p.created_at AS created_at, p.updated_at AS updated_at, c.nombre AS categoria, m.nombre AS marca FROM productos p INNER JOIN categorías c ON p.categoria_id = c.id INNER JOIN marcas m ON p.marca_id = m.id WHERE p.id = ?");
 		$producto->bindParam(1, $id);
 		$producto->execute();
 
@@ -72,6 +72,8 @@ class prodModel extends Modelo
 	}
 
 	public function setProductos($nombre, $codigo, $categoria, $marca, $descripcion){
+		$categoria = (int) $categoria;
+		$marca = (int) $marca;
 		$producto = $this->_db->prepare("INSERT INTO productos VALUES(null, ?, ?, ?, ?, ?, now(), now())");
 		$producto->bindParam(1,$nombre);//definimos el valor de cada ?
 		$producto->bindParam(2,$codigo);
@@ -82,5 +84,37 @@ class prodModel extends Modelo
 
 		$row = $producto->rowCount(); //devuelve la cantidad de registros insertados
 		return $row;
+	}
+
+	public function editProductos($id, $nombre, $codigo, $categoria, $marca, $descripcion, $updated_at){
+		$id = (int) $id;
+		$categoria = (int) $categoria;
+		$marca = (int) $marca;
+
+		$producto = $this->_db->prepare("UPDATE productos SET nombre = ?, codigo = ?, categoria = ?, marca = ?, descripcion = ?, updated_at = now() WHERE id = ?");
+		$producto->bindParam(1, $nombre);
+		$producto->bindParam(2, $codigo);
+		$producto->bindParam(3, $categoria);
+		$producto->bindParam(4, $marca);
+		$producto->bindParam(5, $descripcion);
+		$producto->bindParam(6, $updated_at);
+		$producto->bindParam(7, $id);
+		$producto->execute();
+
+		$row = $producto->rowCount();
+		return $row;
+	}
+
+	public function deleteProductos($id){
+		$id = (int) $id;
+
+		$producto =$this->_db->prepare("DELETE FROM productos WHERE id = ?");
+		$producto->bindParam(1, $id);
+		$producto->execute();
+
+		$row = $producto->rowCount();
+
+		return $row;
+
 	}
 }
