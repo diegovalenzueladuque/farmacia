@@ -46,7 +46,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<?php include('../partials/mensajes.php'); ?>
 
 
-				<table class="table table-hover">
+				<table class="table table-hover table-light">
 					<tr>
 						<th>Usuario:</th>
 						<td><?php echo $res['usuario']; ?></td>

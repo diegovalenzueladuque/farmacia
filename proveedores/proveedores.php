@@ -31,7 +31,7 @@ $res = $proveedores->getProveedores();
 
 				<a href="addProveedores.php" class="btn btn-success">Nuevo Proveedor</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover" style="margin-top: 8px">
+					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>

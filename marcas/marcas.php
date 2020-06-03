@@ -44,7 +44,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 
 				<a href="addMarcas.php" class="btn btn-success">Nueva Marca</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover" style="margin-top: 8px">
+					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>

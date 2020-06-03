@@ -31,7 +31,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 
 				<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover" style="margin-top: 8px">
+					<table class="table table-hover table-light" style="margin-top: 8px">
 						<tr>
 							<th>Nombre</th>
 							<th>Rol</th>

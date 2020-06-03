@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
 					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 				<?php endif; ?>
 
-				<table class="table table-hover">
+				<table class="table table-hover table-light">
 					<tr>
 						<th>Producto:</th>
 						<td><?php echo $res['producto']; ?></td>

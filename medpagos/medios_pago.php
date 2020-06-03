@@ -31,7 +31,7 @@ $res = $medpagos->getMedPagos();
 
 				<a href="addMedPagos.php" class="btn btn-success">Nuevo Medio de Pago</a>
 				<?php if(isset($res) && count($res)): ?>
-					<table class="table table-hover" style="margin-top: 8px">
+					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>
