@@ -121,7 +121,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					
 					<div class="form-group">
 						<label>Descripción</label>
-						<input type="text" name="descripción" value="<?php echo @($descripcion); ?>" placeholder="Ingrese descripción del producto" class="form-control">
+						<input type="text" name="descripción" value="<?php echo $producto['descripcion']; ?>" placeholder="Ingrese descripción del producto" class="form-control">
 					</div>
 					
 					<div class="form-group">
