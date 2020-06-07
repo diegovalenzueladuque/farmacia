@@ -86,7 +86,7 @@ class prodModel extends Modelo
 		return $row;
 	}
 
-	public function editProductos($id, $nombre, $codigo, $categoria, $marca, $descripcion, $updated_at){
+	public function editProductos($id, $nombre, $codigo, $categoria, $marca, $descripcion){
 		$id = (int) $id;
 		$categoria = (int) $categoria;
 		$marca = (int) $marca;
@@ -96,9 +96,8 @@ class prodModel extends Modelo
 		$producto->bindParam(2, $codigo);
 		$producto->bindParam(3, $categoria);
 		$producto->bindParam(4, $marca);
-		$producto->bindParam(5, $descripcion);
-		$producto->bindParam(6, $updated_at);
-		$producto->bindParam(7, $id);
+		$producto->bindParam(5, $descripcion);		
+		$producto->bindParam(6, $id);
 		$producto->execute();
 
 		$row = $producto->rowCount();

@@ -1,5 +1,6 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #083597; border-radius: 10px">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(61,87,189);
+background: linear-gradient(90deg, rgba(61,87,189,1) 14%, rgba(9,9,121,1) 79%, rgba(0,166,255,1) 100%); border-radius: 10px">
   <a class="navbar-brand" href="<?php echo BASE_URL . 'index.php' ?>">Farmacia</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
