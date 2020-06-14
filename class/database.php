@@ -8,7 +8,7 @@ class Database extends PDO
 	private $host = 'localhost';
 	private $base = 'farmacia';
 	private $user = 'root';
-	private $pass = 'root';
+	private $pass = 'beat1974.,';
 	private $charset = 'utf8';
 
 

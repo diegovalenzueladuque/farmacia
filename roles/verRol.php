@@ -17,8 +17,8 @@ if (isset($_GET['id'])) {
 	$res = $roles->getRolId($id);
 
 	if (!$res) {
-		$msg = 'error';
-		header('Location: roles.php?e=' . $msg);
+		$_SESSION['danger'] = 'El dato no es válido';
+		header('Location: roles.php');
 	}
 }
 
@@ -42,13 +42,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 			<div class="col-md-6 mt-3">
 				<h3>Rol</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha modificado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($mensaje)): ?>
-					<p class="alert alert-danger"><?php echo $mensaje; ?></p>
-				<?php endif; ?>
+				<?php include('../partials/mensajes.php'); ?>
 
 				<table class="table table-hover table-light">
 					<tr>

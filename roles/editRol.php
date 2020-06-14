@@ -34,7 +34,8 @@ if (isset($_GET['id'])) {
 			$sql = $roles->editRoles($id, $nombre);
 			//print_r($res);exit;
 			if ($sql) {
-				$msg = 'ok';
+				$_SESSION['success'] = 'El rol se ha registrado correctamente';
+				header('Location: roles.php?id=' )
 				header('Location: verRol.php?m=' . $msg . '&id=' . $id);
 			}
 		}

@@ -24,8 +24,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 			$res = $roles->setRoles($nombre);
 
 			if ($res) {
-				$msg = 'ok';
-				header('Location: roles.php?m=' . $msg);
+				$_SESSION['success'] = 'El rol se ha registrado correctamente';
+				header('Location: roles.php');
+			}else{
+				$_SESSION['danger'] = 'El rol no se ha podido registrar';
+				header('Location: roles.php');
 			}
 		}
 	}

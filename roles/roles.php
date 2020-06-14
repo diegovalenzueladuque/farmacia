@@ -26,21 +26,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 			<div class="col-md-6 mt-3">
 				<h3>Roles</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
-				<?php if(isset($_GET['m'])): ?>
-					<p class="alert alert-success">El rol se ha registrado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['mg'])): ?>
-					<p class="alert alert-success">El rol se ha eliminado correctamente</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['e'])): ?>
-					<p class="alert alert-danger">El dato no existe</p>
-				<?php endif; ?>
-
-				<?php if(isset($_GET['er'])): ?>
-					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
-				<?php endif; ?>
+				<?php include('../partials/mensajes.php'); ?>
 
 				<a href="addRoles.php" class="btn btn-success">Nuevo Rol</a>
 				<?php if(isset($res) && count($res)): ?>

@@ -27,9 +27,11 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php include('../partials/mensajes.php'); ?>
+				<?php if($_SESSION['rol'] == 'Administrador'): ?>
 
+					<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
 
-				<a href="addUsuarios.php" class="btn btn-success">Nuevo Usuario</a>
+				<?php endif; ?>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<tr>
@@ -61,6 +63,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

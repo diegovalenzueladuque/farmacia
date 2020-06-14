@@ -43,11 +43,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 
 			if ($sql) {
 				$_SESSION['success'] = 'El usuario se ha registrado correctamente';
-				header('Location: usuarios.php?m=' . $msg);
+				header('Location: usuarios.php?m=');
 				# code...
 			}else{
 				$_SESSION['danger'] = 'El usuario no se ha registrado';
-				header('Location: usuarios.php?e=' . $msg);
+				header('Location: usuarios.php?e=');
 			}
 		}
 	}

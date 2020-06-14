@@ -10,7 +10,7 @@ require('../class/config.php');
 $productos = new prodModel;
 $res = $productos->getProductos();
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Vendedor'):
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Vendedor'):
 ?>
 <!DOCTYPE html>
 <html>

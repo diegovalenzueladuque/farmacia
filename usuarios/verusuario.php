@@ -19,8 +19,7 @@ if (isset($_GET['id'])) {
 
 
 	if (!$res) {
-		$msg = 'El dato no existe';
-		header('Location: usuarios.php?e=' . $msg);
+		$_SESSION['danger'] = 'El dato no es válido';
 	}
 }
 
@@ -87,15 +86,22 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					</tr>
 				</table>
 				<p>
+					<?php if($_SESSION['rol_id'] <= 2): ?>
 					<a href="editUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
-					<a href="usuarios.php" class="btn btn-link">Volver</a>
+					
 					<a href="delUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+
+					<?php endif; ?>
+
+					<a href="usuarios.php" class="btn btn-link">Volver</a>
 				</p>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>
