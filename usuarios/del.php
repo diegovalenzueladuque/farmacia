@@ -2,32 +2,33 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
-require('../class/catModel.php');
+require('../class/rolModel.php');
+require('../class/usuarioModel.php');
 require('../class/config.php');
 //creamos una instancia de la clase rolModel
-$categorias = new catModel;
+$usuarios = new usuarioModel;
 
 //print_r($_GET);
 
 if (isset($_GET['id'])) {
 	$id = (int) $_GET['id'];
 
-	$res = $categorias->getCategoriaId($id);
+	$res = $usuarios->getUsuarioId($id);
 
 	if ($res){
-		$sql = $categorias->deleteCategorias($id);
+		$sql = $usuarios->deleteUsuarios($id);
 
 		if ($sql) {
 			# code...
 			$msg = 'OK';
-			header('Location: categorias.php?mg=' . $msg);
+			header('Location: index.php?mg=' . $msg);
 		}else{
 			$msg = 'Error';
-			header('Location: categorias.php?er=' . $msg);
+			header('Location: index.php?er=' . $msg);
 		}
 
 	}else{
 		$msg = 'Error';
-		header('Location: categorias.php?e=' . $msg);
+		header('Location: index.php?e=' . $msg);
 	}
 }

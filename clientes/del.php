@@ -20,14 +20,14 @@ if (isset($_GET['id'])) {
 		if ($sql) {
 			# code...
 			$msg = 'OK';
-			header('Location: clientes.php?mg=' . $msg);
+			header('Location: index.php?mg=' . $msg);
 		}else{
 			$msg = 'Error';
-			header('Location: clientes.php?er=' . $msg);
+			header('Location: index.php?er=' . $msg);
 		}
 
 	}else{
 		$msg = 'Error';
-		header('Location: clientes.php?e=' . $msg);
+		header('Location: index.php?e=' . $msg);
 	}
 }

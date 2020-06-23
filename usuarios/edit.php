@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
 			$res = $usuarios->editUsuario($id, $nombre, $email, $rol, $active);
 			if ($res) {
 				$_SESSION['success'] = 'El usuario se ha modificado correctamente';
-				header('Location: verusuario.php?id=' . $id);
+				header('Location: show.php?id=' . $id);
 				# code...
 			}
 
@@ -105,7 +105,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
 						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="usuarios.php" class="btn btn-link">Volver</a>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>
@@ -113,6 +113,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

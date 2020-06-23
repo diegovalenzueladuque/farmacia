@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Vendedor'):
+if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Vendedor'):
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,9 +94,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Ve
 					</tr>
 				</table>
 				<p>
-					<a href="editCliente.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
-					<a href="clientes.php" class="btn btn-link">Volver</a>
-					<a href="delcliente.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
+					<a href="index.php" class="btn btn-link">Volver</a>
+					<a href="delphp?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
 				</p>
 			</div>
 		</div>

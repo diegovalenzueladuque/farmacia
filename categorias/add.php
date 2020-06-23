@@ -29,7 +29,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 
 			if ($res) {
 				$msg = 'ok';
-				header('Location: categorias.php?m=' . $msg);
+				header('Location: index.php?m=' . $msg);
 			}
 		}
 	}
@@ -67,7 +67,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
 						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="categorias.php" class="btn btn-link">Volver</a>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>

@@ -24,14 +24,14 @@ background: linear-gradient(90deg, rgba(61,87,189,1) 14%, rgba(9,9,121,1) 79%, r
           Administración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'usuarios/usuarios.php' ?>">Usuarios</a>
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'roles/roles.php' ?>">Roles</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'usuarios/' ?>">Usuarios</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'roles/' ?>">Roles</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'clientes/clientes.php' ?>">Clientes</a>
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'marcas/marcas.php' ?>">Marcas</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'clientes/' ?>">Clientes</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'marcas/' ?>">Marcas</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'categorias/categorias.php' ?>">Categorías</a>
-          <a class="dropdown-item" href="<?php echo BASE_URL . 'productos/productos.php' ?>">Productos</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'categorias/' ?>">Categorías</a>
+          <a class="dropdown-item" href="<?php echo BASE_URL . 'productos/' ?>">Productos</a>
         </div>
       </li>
     <?php endif; ?>

@@ -54,22 +54,26 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	<div class="container-fluid">
 		<?php include('../partials/header.php'); ?><br><br>
 		<div class="d-flex justify-content-center h-100 bg-transparent">
-			<div class="card-fluid">
-				<div class="card-header bg-success" style="border-radius: 5px">
+			<div class="card" style="width: 28rem">
+				<div class="card-header bg-success" style="border-radius: 5px;">
 					<h3 class="text-light" style="text-align: center">Login Usuario</h3>
 					<?php if(isset($mensaje)): ?>
 						<p class="alert alert-danger"><?php echo $mensaje; ?></p>
 					<?php endif; ?>
-				</div>	
+				</div><br>
 				<div class="card-body">
 						<form action="" method="post">
-							<div class="form-group">
-								<label>Email</label>
-								<span class="input-group-text"><i class="fas fa-user"></i><input type="email" name="email" placeholder="Tu email" class="form-control"></span>
-							</div>
-							<div class="form-group">
-								<label>Contraseña</label>
-								<span class="input-group-text"><i class="fas fa-key"></i><input type="password" name="password" class="form-control" placeholder="Tu contraseña"></span>
+							
+							<div class="input-group form-group justify-content-center">
+								<label class="input-group">Email</label>
+								<span class="input-group-text"><i class="fas fa-at"></i></span>
+								<input type="email" name="email" placeholder="Tu email" class="form-control">
+							</div><br><br>
+							
+							<div class="input-group form-group justify-content-center">
+								<label class="input-group">Contraseña</label>
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+								<input type="password" name="password" class="form-control" placeholder="Tu contraseña">
 							</div><br>
 							<div class="card-footer-fluid bg-transparent" style="text-align: center">
 								<div class="form-group">

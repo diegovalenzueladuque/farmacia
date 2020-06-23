@@ -43,11 +43,11 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 
 			if ($sql) {
 				$_SESSION['success'] = 'El usuario se ha registrado correctamente';
-				header('Location: usuarios.php?m=');
+				header('Location: index.php?m=');
 				# code...
 			}else{
 				$_SESSION['danger'] = 'El usuario no se ha registrado';
-				header('Location: usuarios.php?e=');
+				header('Location: index.php?e=');
 			}
 		}
 	}
@@ -110,7 +110,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
 						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="usuarios.php" class="btn btn-link">Volver</a>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>
@@ -118,6 +118,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php
+	else:
+		header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

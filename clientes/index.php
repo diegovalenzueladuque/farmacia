@@ -30,13 +30,13 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Ve
 					<p class="alert alert-success">El cliente se ha registrado correctamente</p>
 				<?php endif; ?>
 
-				<a href="addClientes.php" class="btn btn-success">Nuevo Cliente</a>
+				<a href="add.php" class="btn btn-success">Nuevo Cliente</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>
-									<a href="verCliente.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
+									<a href="show.php?id=<?php echo $r['id']; ?>"><?php echo $r['nombre']; ?></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

@@ -87,13 +87,13 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				</table>
 				<p>
 					<?php if($_SESSION['rol_id'] <= 2): ?>
-					<a href="editUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
 					
-					<a href="delUsuarios.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
 
 					<?php endif; ?>
 
-					<a href="usuarios.php" class="btn btn-link">Volver</a>
+					<a href="index.php" class="btn btn-link">Volver</a>
 				</p>
 			</div>
 		</div>
