@@ -45,7 +45,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 
 			if ($res) {
 				$msg = 'ok';
-				header('Location: productos.php?m=' . $msg);
+				header('Location: index.php?m=' . $msg);
 			}
 		}
 	}
@@ -117,8 +117,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 					
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="productos.php" class="btn btn-link">Volver</a>
+						<button type="submit" class="btn btn-outline-success">Guardar</button>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>

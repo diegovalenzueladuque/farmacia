@@ -88,7 +88,7 @@ if (isset($_GET['id'])) {
 					</tr>
 				</table>
 				<p>
-					<a href="" class="btn btn-warning">Editar</a>
+					<a href="" class="btn btn-outline-warning">Editar</a>
 					<a href="proveedores.php" class="btn btn-link">Volver</a>
 				</p>
 			</div>

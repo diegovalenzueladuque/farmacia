@@ -90,7 +90,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 					
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Guardar</button>
+						<button type="submit" class="btn btn-outline-success">Guardar</button>
 						<a href="proveedores.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>

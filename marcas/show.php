@@ -3,22 +3,24 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 require('../class/marcaModel.php');
+require('../class/prodModel.php');
 require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $marcas = new marcaModel;
+$productos = new prodModel;
 
 //print_r($_GET);
 
 if (isset($_GET['id'])) {
 	//recuperamos y sanitizamos el dato que viene por cabecera
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
-	//$id = (int) $id;
+	
 
 	$res = $marcas->getMarcaId($id);
-
+	$producto = $productos->getProductoMarca($id);
+	//print_r($producto);exit;
 	if (!$res) {
-		$msg = 'error';
-		header('Location: index.php?e=' . $msg);
+		$_SESSION['danger'] = 'El dato no es válido';
 	}
 }
 
@@ -74,10 +76,39 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					</tr>
 				</table>
 				<p>
-					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
 					<a href="index.php" class="btn btn-link">Volver</a>
-					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
+					<a href="<?php echo BASE_URL . 'productos/addxmarca.php?id=' . $res['id']; ?>" class="btn btn-outline-primary">Agregar Producto</a>
 				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 mt-3">
+				<h3>Productos asociados a <?php echo $res['nombre']; ?></h3>
+
+				<?php if(isset($producto) && count($producto)): ?>
+					<table class="table table-hover">
+						<th>Producto</th>
+						<th>Código</th>
+						<th>Categoria</th>
+						<th>Activo</th>
+						<?php foreach($producto as $p): ?>
+							<tr>
+								<td>
+									<a href="<?php echo BASE_URL . 'productos/show.php?id=' . $p['id']; ?>"><?php echo $p['nombre']; ?></a>
+								</td>
+								<td><?php echo $p['codigo']; ?></td>
+								<td><?php echo $p['categoria']; ?></td>
+								<td>
+									<?php if($p['activo'] == 1): ?> Si <?php else: ?> No <?php endif; ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</table>
+				<?php else: ?>
+					<p class="text-info mt-3">No hay productos asociados a esta marca</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

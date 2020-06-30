@@ -93,7 +93,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Ve
 					
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Modificar</button>
+						<button type="submit" class="btn btn-outline-success">Modificar</button>
 						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>

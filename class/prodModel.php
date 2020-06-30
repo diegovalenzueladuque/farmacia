@@ -11,7 +11,7 @@ class prodModel extends Modelo
 	//traemos todos los roles de la tabla roles
 	public function getProductos(){
 		//consulta a la tabla roles usando el objeto db de la clase modelo
-		$productos = $this->_db->query("SELECT p.id, p.nombre AS producto, c.nombre AS categoria, m.nombre AS marca FROM productos p INNER JOIN categorías c ON p.categoria_id = c.id INNER JOIN marcas m ON p.marca_id = m.id ORDER BY p.nombre;");
+		$productos = $this->_db->query("SELECT p.id, p.nombre AS producto, p.codigo, p.precio, p.activo as estado, c.nombre AS categoria, m.nombre AS marca FROM productos p INNER JOIN categorías c ON p.categoria_id = c.id INNER JOIN marcas m ON p.marca_id = m.id ORDER BY p.nombre;");
 
 		//retornamos lo que haya en la tabla roles
 		return $productos->fetchAll();
@@ -20,11 +20,19 @@ class prodModel extends Modelo
 	public function getProductoId($id){
 		$id = (int) $id;
 
-		$producto = $this->_db->prepare("SELECT p.id, p.nombre AS producto, p.código AS codigo, p.descripción AS descripcion, p.created_at AS created_at, p.updated_at AS updated_at, c.nombre AS categoria, m.nombre AS marca FROM productos p INNER JOIN categorías c ON p.categoria_id = c.id INNER JOIN marcas m ON p.marca_id = m.id WHERE p.id = ?");
-		$producto->bindParam(1, $id);
-		$producto->execute();
+		$prod = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio,	 c.nombre as categoria, m.nombre as marca, p.descripcion, p.activo, p.created_at, p.updated_at FROM productos p INNER JOIN categorías c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id WHERE p.id = ?");
+		$prod->bindParam(1, $id);
+		$prod->execute();
 
-		return $producto->fetch();
+		return $prod->fetch();
+	}
+
+	public function getProductoCodigo($codigo){
+		$prod = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio, c.nombre as categoria, m.nombre as marca, p.descripcion, p.created_at, p.updated_at FROM productos p INNER JOIN categorías c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id ORDER BY p.nombre WHERE p.codigo = ?");
+		$prod->bindParam(1, $codigo);
+		$prod->execute();
+
+		return $prod->fetch();
 	}
 
 	public function getProductoNombre($nombre){
@@ -35,32 +43,25 @@ class prodModel extends Modelo
 		return $producto->fetch();
 	}
 
-	public function getProductoCodigo($codigo){
-		$producto = $this->_db->prepare("SELECT id FROM productos WHERE código = ?");
-		$producto->bindParam(1, $codigo);
-		$producto->execute();
-
-		return $producto->fetch();
-	}
-
+	
 	public function getProductoCategoria($categoria){
 		$categoria = (int) $categoria;
 
-		$producto = $this->_db->prepare("SELECT id FROM productos WHERE categoria_id = ?");
+		$producto = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio, c.nombre as categoria, m.nombre as marca, p.descripcion, p.created_at, p.updated_at FROM productos p INNER JOIN categorias c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id ORDER BY p.nombre WHERE p.categoria_id = ?");
 		$producto->bindParam(1, $categoria);
 		$producto->execute();
 
-		return $producto->fetch();
+		return $producto->fetchall();
 	}
 
 	public function getProductoMarca($marca){
 		$marca = (int) $marca;
 
-		$producto = $this->_db->prepare("SELECT id FROM productos WHERE marca_id = ?");
+		$producto = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio, c.nombre as categoria, m.nombre as marca, p.descripcion, p.activo, p.created_at, p.updated_at FROM productos p INNER JOIN categorías c ON c.id = p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id WHERE p.marca_id = ? ORDER BY p.nombre");
 		$producto->bindParam(1, $marca);
 		$producto->execute();
 
-		return $producto->fetch();
+		return $producto->fetchall();
 	}
 
 	public function getProductoDescripcion($descripcion){
@@ -71,33 +72,38 @@ class prodModel extends Modelo
 		return $producto->fetch();
 	}
 
-	public function setProductos($nombre, $codigo, $categoria, $marca, $descripcion){
+	public function setProductos($nombre, $codigo, $precio, $categoria, $marca, $descripcion){
 		$categoria = (int) $categoria;
 		$marca = (int) $marca;
-		$producto = $this->_db->prepare("INSERT INTO productos VALUES(null, ?, ?, ?, ?, ?, now(), now())");
+		$producto = $this->_db->prepare("INSERT INTO productos VALUES(null, ?, ?, ?, ?, ?, ?, now(), now())");
 		$producto->bindParam(1,$nombre);//definimos el valor de cada ?
 		$producto->bindParam(2,$codigo);
-		$producto->bindParam(3,$categoria);
-		$producto->bindParam(4,$marca);
-		$producto->bindParam(5,$descripcion);
+		$producto->bindParam(3,$precio);
+		$producto->bindParam(4,$categoria);
+		$producto->bindParam(5,$marca);
+		$producto->bindParam(6,$descripcion);
 		$producto->execute();//ejecutamos la consulta
 
 		$row = $producto->rowCount(); //devuelve la cantidad de registros insertados
 		return $row;
 	}
 
-	public function editProductos($id, $nombre, $codigo, $categoria, $marca, $descripcion){
+	public function editProductos($id, $nombre, $codigo, $precio, $activo, $categoria, $marca, $descripcion){
 		$id = (int) $id;
+		$precio = (int) $precio;
 		$categoria = (int) $categoria;
 		$marca = (int) $marca;
+		$activo = (int) $activo;
 
-		$producto = $this->_db->prepare("UPDATE productos SET nombre = ?, codigo = ?, categoria = ?, marca = ?, descripcion = ?, updated_at = now() WHERE id = ?");
+		$producto = $this->_db->prepare("UPDATE productos SET nombre = ?, codigo = ?, precio = ?, activo = ?, categoria = ?, marca = ?, descripcion = ?, updated_at = now() WHERE id = ?");
 		$producto->bindParam(1, $nombre);
 		$producto->bindParam(2, $codigo);
-		$producto->bindParam(3, $categoria);
-		$producto->bindParam(4, $marca);
-		$producto->bindParam(5, $descripcion);		
-		$producto->bindParam(6, $id);
+		$producto->bindParam(3, $precio);
+		$producto->bindParam(4, $activo);
+		$producto->bindParam(5, $categoria);
+		$producto->bindParam(6, $marca);
+		$producto->bindParam(7, $descripcion);		
+		$producto->bindParam(8, $id);
 		$producto->execute();
 
 		$row = $producto->rowCount();

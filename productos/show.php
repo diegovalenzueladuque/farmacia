@@ -4,10 +4,12 @@ ini_set('display_errors', '1');
 session_start();
 require('../class/prodModel.php');
 require_once('../class/catModel.php');
+require('../class/imagenModel.php');
 require('../class/config.php');
 require_once('../class/catModel.php');
 //creamos una instancia de la clase rolModel
 $productos = new prodModel;
+$imagenes = new imagenModel;
 
 //print_r($_GET);
 
@@ -16,7 +18,8 @@ if (isset($_GET['id'])) {
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
 	$res = $productos->getProductoId($id);
-
+	$img = $imagenes->getImagenProducto($id);
+	//print_r($res);exit;
 
 	if (!$res) {
 		$mensaje = 'El dato consultado no existe';
@@ -39,7 +42,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 	<div class="container-fluid">
 		<?php include('../partials/header.php'); ?>
 		<div class="row">
-			<div class="col-md-8 mt-3">
+			<div class="col-md-6 mt-3">
 				<h3>Producto</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php if(isset($_GET['m'])): ?>
@@ -53,11 +56,15 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 				<table class="table table-hover table-light">
 					<tr>
 						<th>Producto:</th>
-						<td><?php echo $res['producto']; ?></td>
+						<td><?php echo $res['nombre']; ?></td>
 					</tr>
 					<tr>
 						<th>Código:</th>
 						<td><?php echo $res['codigo']; ?></td>
+					</tr>
+					<tr>
+						<th>Valor:</th>
+						<td>$<?php echo $res['precio']; ?></td>
 					</tr>
 					<tr>
 						<th>Categoría:</th>
@@ -91,10 +98,24 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 					</tr>
 				</table>
 				<p>
-					<a href="editProd.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
-					<a href="productos.php" class="btn btn-link">Volver</a>
-					<a href="delProd.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
+					<a href="index.php" class="btn btn-link">Volver</a>
+					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
+					<a href="<?php echo BASE_URL . 'imagenes/addxProd.php?id=' . $res['id']; ?>" class="btn btn-outline-primary">Agregar Imagen</a>
 				</p>
+			</div>
+			<div class="col-md-6 mt-3">
+				<h4>Imágenes asociadas a <?php echo $res['nombre']; ?></h4>
+				<?php if(isset($img) && count($img)): ?>
+					<?php foreach($img as $img): ?>
+						<div class="col-md-6">
+							<h5><?php echo $img['titulo']; ?></h5>
+							<img src="<?php echo BASE_IMG . 'productos/' . $img['nombre']; ?>" class="img-thumbnail" >
+						</div>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<p class="text-info">No hay imágenes asociadas</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

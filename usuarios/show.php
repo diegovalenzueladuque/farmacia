@@ -87,9 +87,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				</table>
 				<p>
 					<?php if($_SESSION['rol_id'] <= 2): ?>
-					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
 					
-					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
 
 					<?php endif; ?>
 

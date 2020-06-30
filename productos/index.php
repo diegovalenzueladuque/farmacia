@@ -30,13 +30,13 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php include('../partials/mensajes.php'); ?>
 
-				<a href="addProductos.php" class="btn btn-success">Nuevo Producto</a>
+				<a href="add.php" class="btn btn-success">Nuevo Producto</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>
 							<tr>
 								<td>
-									<a href="verProd.php?id=<?php echo $r['id']; ?>"><?php echo $r['producto']; ?></a>
+									<a href="show.php?id=<?php echo $r['id']; ?>"><?php echo $r['producto']; ?></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

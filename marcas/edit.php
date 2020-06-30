@@ -2,8 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
-require('class/marcaModel.php');
-//creamos una instancia de la clase rolModel
+require('../class/marcaModel.php');
+
+
 $marcas = new marcaModel;
 
 //print_r($_GET);
@@ -54,7 +55,7 @@ if (isset($_GET['id'])) {
 </head>
 <body>
 	<div class="container-fluid">
-		<?php include('header.php'); ?>
+		<?php include('../partials/header.php'); ?>
 		<div class="row">
 			<div class="col-md-6 mt-3">
 				<h3>Marca</h3>
@@ -74,7 +75,7 @@ if (isset($_GET['id'])) {
 					</div>
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Modificar</button>
+						<button type="submit" class="btn btn-outline-success">Modificar</button>
 						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>

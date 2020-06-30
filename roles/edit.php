@@ -76,8 +76,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					</div>
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Modificar</button>
-						<a href="index.php" class="btn btn-link">Volver</a>
+						<button type="submit" class="btn btn-outline-success">Modificar</button>
+						<a href="index.php" class="btn btn-outline-link">Volver</a>
 					</div>
 				</form>
 			</div>

@@ -67,18 +67,18 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 							<div class="input-group form-group justify-content-center">
 								<label class="input-group">Email</label>
 								<span class="input-group-text"><i class="fas fa-at"></i></span>
-								<input type="email" name="email" placeholder="Tu email" class="form-control">
+								<input type="email" name="email" placeholder="Tu email" class="form-control" autocomplete="off">
 							</div><br><br>
 							
 							<div class="input-group form-group justify-content-center">
 								<label class="input-group">Contraseña</label>
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
-								<input type="password" name="password" class="form-control" placeholder="Tu contraseña">
+								<input type="password" name="password" class="form-control" placeholder="Tu contraseña" autocomplete="off">
 							</div><br>
 							<div class="card-footer-fluid bg-transparent" style="text-align: center">
 								<div class="form-group">
 									<input type="hidden" name="enviar" value="si" >
-									<button type="submit" class="btn btn-success" >Enviar</button>
+									<button type="submit" class="btn btn-outline-success" >Enviar</button>
 								</div>
 							</div>	
 						</form>

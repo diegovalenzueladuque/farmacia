@@ -30,6 +30,8 @@ if (isset($_GET['id'])) {
 	if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		$nombre = strip_tags($_POST['nombre']);
 		$codigo = strip_tags($_POST['código']);
+		$precio = strip_tags($_POST['precio']);
+		$activo = strip_tags($_POST['activo']);
 		$categoria = strip_tags($_POST['categoria_id']);
 		$marca = strip_tags($_POST['marca_id']);
 		$descripcion = strip_tags($_POST['descripción']);
@@ -39,6 +41,10 @@ if (isset($_GET['id'])) {
 		$mensaje = 'Ingrese el nombre del producto';
 	}elseif(!$codigo){
 		$mensaje = 'Ingrese código del producto';
+	}elseif(!$precio){
+		$mensaje = 'Ingrese valor del producto';
+	}elseif(!$activo){
+		$mensaje = 'Ingrese estado del producto';
 	}elseif(!$categoria){
 		$mensaje = 'Ingrese categoría del producto';
 	}elseif(!$marca){
@@ -47,10 +53,10 @@ if (isset($_GET['id'])) {
 		$mensaje = 'Ingrese descripción del producto';
 		}else{
 			//verificar que el usuario no se haya registrado previamente
-			$res = $productos->editProductos($id, $nombre, $codigo, $categoria, $marca, $descripcion, $updated_at);
+			$res = $productos->editProductos($id, $nombre, $codigo, $precio, $activo, $categoria, $marca, $descripcion);
 			if ($res) {
 				$_SESSION['success'] = 'El producto se ha modificado correctamente';
-				header('Location: verProd.php?id=' . $id);
+				header('Location: show.php?id=' . $id);
 				# code...
 			}
 
@@ -83,19 +89,33 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<form action="" method="post">
 					<div class="form-group">
 						<label>Nombre del Producto</label>
-						<input type="text" name="nombre" value="<?php echo $producto['producto']; ?>" placeholder="Ingrese nombre del producto" class="form-control">
+						<input type="text" name="nombre" value="<?php echo $producto['nombre']; ?>" placeholder="Ingrese nombre del producto" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Código del Producto</label>
 						<input type="text" name="código" value="<?php echo $producto['codigo']; ?>" placeholder="Ingrese código del producto" class="form-control">
 					</div>
 					<div class="form-group">
+						<label>Valor</label>
+						<input type="text" name="precio" value="<?php echo $producto['precio']; ?>" placeholder="Ingrese valor del producto" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Estado</label>
+						<select name="activo" class="form-control">
+							<option value="<?php echo $producto['activo'] ?>">
+								<?php if($producto['activo']==1): ?>Activo <?php else: ?> Inactivo <?php endif; ?>
+							</option>
+							<option value="1">Activar</option>
+							<option value="2">Desactivar</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label>Categoría</label>
 						<select name="categoria_id" class="form-control">
-							<option value="">Seleccione...</option>
+							<option value="<?php echo $producto['categoria'] ?>">Seleccione...</option>
 							<?php
 								$res = $categorias->getCategorias();
-								foreach ($res as $r ): 
+								foreach ($ress as $r ): 
 							?>
 							<option value="<?php echo $r['id']; ?>"><?php echo $r ['nombre']; ?></option>
 						<?php endforeach ?>
@@ -126,8 +146,8 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					
 					<div class="form-group">
 						<input type="hidden" name="enviar" value="si">
-						<button type="submit" class="btn btn-success">Guardar</button>
-						<a href="productos.php" class="btn btn-link">Volver</a>
+						<button type="submit" class="btn btn-outline-success">Modificar</button>
+						<a href="index.php" class="btn btn-link">Volver</a>
 					</div>
 				</form>
 			</div>

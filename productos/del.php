@@ -22,14 +22,14 @@ if (isset($_GET['id'])) {
 		if ($sql) {
 			# code...
 			$msg = 'OK';
-			header('Location: productos.php?mg=' . $msg);
+			header('Location: index.php?mg=' . $msg);
 		}else{
 			$msg = 'Error';
-			header('Location: productos.php?er=' . $msg);
+			header('Location: index.php?er=' . $msg);
 		}
 
 	}else{
 		$msg = 'Error';
-		header('Location: productos.php?e=' . $msg);
+		header('Location: index.php?e=' . $msg);
 	}
 }

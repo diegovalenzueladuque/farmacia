@@ -94,9 +94,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 					</tr>
 				</table>
 				<p>
-					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-warning">Editar</a>
+					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
 					<a href="index.php" class="btn btn-link">Volver</a>
-					<a href="delphp?id=<?php echo $res['id']; ?>" class="btn btn-danger">Eliminar</a>
+					<a href="delphp?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
 				</p>
 			</div>
 		</div>
