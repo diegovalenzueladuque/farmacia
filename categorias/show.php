@@ -3,9 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 require('../class/catModel.php');
+require('../class/prodModel.php');
 require('../class/config.php');
+
 //creamos una instancia de la clase rolModel
 $categorias = new catModel;
+$productos = new prodModel;
 
 //print_r($_GET);
 
@@ -14,7 +17,8 @@ if (isset($_GET['id'])) {
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
 	$res = $categorias->getCategoriaId($id);
-
+	$producto = $productos->getProductoCategoria($id);
+	//print_r($prod);exit;
 	if (!$res) {
 		$mensaje = 'El dato consultado no existe';
 	}
@@ -82,6 +86,32 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				</p>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-10 mt-3">
+				<h3>Productos asociados a <?php echo $res['nombre']; ?></h3>
+
+				<?php if(isset($producto) && count($producto)): ?>
+					<table class="table table-hover">
+						<th>Producto</th>
+						<th>Código</th>
+						
+						
+						
+						<?php foreach($producto as $p): ?>
+							<tr>
+								<td>
+									<a href="<?php echo BASE_URL . 'productos/show.php?id=' . $p['id']; ?>"><?php echo $p['producto']; ?></a>
+								</td>
+								<td><?php echo $p['codigo']; ?></td>
+								
+								
+							</tr>
+						<?php endforeach; ?>
+					</table>
+				<?php else: ?>
+					<p class="text-info mt-3">No hay productos asociados a esta marca</p>
+				<?php endif; ?>
+			</div>
 	</div>
 </body>
 </html>

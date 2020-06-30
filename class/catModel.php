@@ -11,7 +11,7 @@ class catModel extends Modelo
 	//traemos todos los roles de la tabla roles
 	public function getCategorias(){
 		//consulta a la tabla roles usando el objeto db de la clase modelo
-		$categorias = $this->_db->query("SELECT id, nombre, código FROM categorías ORDER BY id DESC");
+		$categorias = $this->_db->query("SELECT id, nombre, código, created_at, updated_at from categorías ORDER BY nombre");
 
 		//retornamos lo que haya en la tabla roles
 		return $categorias->fetchall();
@@ -20,7 +20,7 @@ class catModel extends Modelo
 	public function getCategoriaId($id){
 		$id = (int) $id;
 
-		$categoria = $this->_db->prepare("SELECT id, nombre, código, created_at, updated_at FROM categorías WHERE id = ?");
+		$categoria = $this->_db->prepare("SELECT id, nombre, código, created_at, updated_at from categorías WHERE id = ? ORDER BY nombre");
 		$categoria->bindParam(1, $id);
 		$categoria->execute();
 
@@ -35,7 +35,7 @@ class catModel extends Modelo
 		return $categoria->fetch();
 	}
 
-	public function getCategoriaCodigo($codigo){
+	public function getCategoriaCodigo($producto){
 		$categoria = $this->_db->prepare("SELECT id FROM categorías WHERE código = ?");
 		$categoria->bindParam(1, $codigo);
 		$categoria->execute();

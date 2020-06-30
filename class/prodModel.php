@@ -20,7 +20,7 @@ class prodModel extends Modelo
 	public function getProductoId($id){
 		$id = (int) $id;
 
-		$prod = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio,	 c.nombre as categoria, m.nombre as marca, p.descripcion, p.activo, p.created_at, p.updated_at FROM productos p INNER JOIN categorías c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id WHERE p.id = ?");
+		$prod = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio,	c.nombre as categoria, m.nombre as marca, p.descripcion, p.activo, p.created_at, p.updated_at FROM productos p INNER JOIN categorías c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id WHERE p.id = ?");
 		$prod->bindParam(1, $id);
 		$prod->execute();
 
@@ -47,7 +47,7 @@ class prodModel extends Modelo
 	public function getProductoCategoria($categoria){
 		$categoria = (int) $categoria;
 
-		$producto = $this->_db->prepare("SELECT p.id, p.nombre, p.codigo, p.precio, c.nombre as categoria, m.nombre as marca, p.descripcion, p.created_at, p.updated_at FROM productos p INNER JOIN categorias c ON c.id =p.categoria_id INNER JOIN marcas m ON m.id = p.marca_id ORDER BY p.nombre WHERE p.categoria_id = ?");
+		$producto = $this->_db->prepare("SELECT p.id, p.nombre AS producto, p.codigo AS codigo, c.id, c.nombre AS categoria FROM categorías c INNER JOIN productos p ON p.categoria_id = c.id WHERE c.id = ? ORDER BY c.nombre;");
 		$producto->bindParam(1, $categoria);
 		$producto->execute();
 

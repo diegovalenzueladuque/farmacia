@@ -5,12 +5,14 @@ session_start();
 
 require('class/prodModel.php');
 require('class/imagenModel.php');
+require('class/catModel.php');
 require('class/config.php');
 
 $imagenes = new imagenModel;
+$categorias = new catModel;
 
 $img = $imagenes->getImagenes();
-
+$categorias = $categorias->getCategorias();
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,6 +35,21 @@ $img = $imagenes->getImagenes();
 							<h5><?php echo $img['producto']; ?></h5>
 							<img src="<?php echo BASE_IMG . 'productos/' . $img['imagen']; ?>" class="img-thumbnail" >
 							<h5 class="text-info">$ <?php echo number_format($img['precio'],0,',','.'); ?></h5>
+						</div>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 mt-3">
+				<?php include('partials/mensajes.php'); ?>
+				<h4 class="text text-info">BÚSQUEDA POR CATEGORÍA</h4>
+				<?php foreach($categorias as $cat): ?>
+					<a href="<?php echo BASE_URL . 'categorias/show.php?id=' . $cat['id']; ?>">
+						<div class="col-md-3" style="float: left">
+							<h5><?php echo $cat['nombre']; ?></h5>
+							
+							
 						</div>
 					</a>
 				<?php endforeach; ?>

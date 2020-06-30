@@ -4,10 +4,10 @@ ini_set('display_errors', '1');
 session_start();
 require('../class/catModel.php');
 require('../class/config.php');
-//creamos una instancia de la clase rolModel
+
 $categorias = new catModel;
 $res = $categorias->getCategorias();
-//print_r($res);
+//print_r($res);exit;
 if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 ?>
 <!DOCTYPE html>

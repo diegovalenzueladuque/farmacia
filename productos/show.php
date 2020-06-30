@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
 
 	$res = $productos->getProductoId($id);
 	$img = $imagenes->getImagenProducto($id);
-	//print_r($res);exit;
+	//print_r($img);exit;
 
 	if (!$res) {
 		$mensaje = 'El dato consultado no existe';

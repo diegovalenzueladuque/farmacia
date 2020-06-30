@@ -1,5 +1,5 @@
  <?php
-require('modelo.php');
+require_once('modelo.php');
 
 class clienteModel extends Modelo
 {
@@ -20,7 +20,7 @@ class clienteModel extends Modelo
 	public function getClienteId($id){
 		$id = (int) $id;
 
-		$cliente = $this->_db->prepare("SELECT id, nombre, rut, dirección, fecha_nacimiento, persona, created_at, updated_at FROM clientes WHERE id = ?");
+		$cliente = $this->_db->prepare("SELECT  id, nombre, rut, dirección, fecha_nacimiento, persona, created_at, updated_at FROM clientes WHERE id = ?");
 		$cliente->bindParam(1, $id);
 		$cliente->execute();
 

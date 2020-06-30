@@ -3,9 +3,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 session_start();
 require('../class/clienteModel.php');
+require('../class/imagenModel.php');
 require('../class/config.php');
 //creamos una instancia de la clase rolModel
 $clientes = new clienteModel;
+$imagenes = new imagenModel;
 
 //print_r($_GET);
 
@@ -14,8 +16,8 @@ if (isset($_GET['id'])) {
 	$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
 
 	$res = $clientes->getClienteId($id);
-
-
+	$img = $imagenes->getImagenCliente($id);
+	//print_r($img);exit;
 	if (!$res) {
 		$mensaje = 'El dato consultado no existe';
 	}
@@ -97,7 +99,21 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
 					<a href="index.php" class="btn btn-link">Volver</a>
 					<a href="delphp?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
+					<a href="<?php echo BASE_URL . 'imagenes/addxclient.php?id=' . $res['id']; ?>" class="btn btn-outline-primary">Agregar Imagen</a>
 				</p>
+			</div>
+			<div class="col-md-6 mt-3">
+				<h4>Imágenes asociadas a <?php echo $res['nombre']; ?></h4>
+				<?php if(isset($img) && count($img)): ?>
+					<?php foreach($img as $img): ?>
+						<div class="col-md-6">
+							<h5><?php echo $img['titulo']; ?></h5>
+							<img src="<?php echo BASE_IMG . 'clientes/' . $img['nombre']; ?>" class="img-thumbnail" >
+						</div>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<p class="text-info">No hay imágenes asociadas</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
