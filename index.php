@@ -39,14 +39,14 @@ $categorias = $categorias->getCategorias();
 					</a>
 				<?php endforeach; ?>
 			</div>
-		</div>
+		</div><br>
 		<div class="row">
 			<div class="col-md-12 mt-3">
 				<?php include('partials/mensajes.php'); ?>
 				<h4 class="text text-info">BÚSQUEDA POR CATEGORÍA</h4>
 				<?php foreach($categorias as $cat): ?>
-					<a href="<?php echo BASE_URL . 'categorias/show.php?id=' . $cat['id']; ?>">
-						<div class="col-md-3" style="float: left">
+					<a href="<?php echo BASE_URL . 'categorias/show.php?id=' . $cat['id']; ?>" class="btn btn-outline-success">
+						<div class="col-md-12" style="float: left">
 							<h5><?php echo $cat['nombre']; ?></h5>
 							
 							

@@ -87,7 +87,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-10 mt-3">
+			<div class="col-md-7 mt-3">
 				<h3>Productos asociados a <?php echo $res['nombre']; ?></h3>
 
 				<?php if(isset($producto) && count($producto)): ?>
