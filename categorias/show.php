@@ -18,6 +18,7 @@ if (isset($_GET['id'])) {
 
 	$res = $categorias->getCategoriaId($id);
 	$producto = $productos->getProductoCategoria($id);
+	
 	//print_r($prod);exit;
 	if (!$res) {
 		$mensaje = 'El dato consultado no existe';
@@ -100,7 +101,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 						<?php foreach($producto as $p): ?>
 							<tr>
 								<td>
-									<a href="<?php echo BASE_URL . 'productos/show.php?id=' . $p['id']; ?>"><?php echo $p['producto']; ?></a>
+									<a href="<?php echo BASE_URL . 'productos/show.php?id=' . $p['id']; ?>"><?php echo $p['nombre']; ?></a>
 								</td>
 								<td><?php echo $p['codigo']; ?></td>
 								
