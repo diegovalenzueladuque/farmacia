@@ -38,7 +38,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					<p class="alert alert-danger">La categoría no se ha podido eliminar</p>
 				<?php endif; ?>
 
-				<a href="addCategorias.php" class="btn btn-success">Nueva Categoría</a>
+				<a href="add.php" class="btn btn-success">Nueva Categoría</a>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>

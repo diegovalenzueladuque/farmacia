@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] = 1 && $_SESSION['rol_id'] <= 3)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,9 +81,12 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 					</tr>
 				</table>
 				<p>
+					<?php if(!isset($_SESSION['autenticado']) && $_SESSION['rol']== 'Administrador'): ?>
 					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
-					<a href="index.php" class="btn btn-link">Volver</a>
 					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
+					<?php endif; ?>
+					<a href="index.php" class="btn btn-link">Volver</a>
+					
 				</p>
 			</div>
 		</div>
