@@ -57,6 +57,7 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] = 1 && $_SESSION['rol
 						<th>Categoría:</th>
 						<td><?php echo $res['nombre']; ?></td>
 					</tr>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 					<tr>
 						<th>Código:</th>
 						<td><?php echo $res['código']; ?></td>
@@ -79,9 +80,10 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] = 1 && $_SESSION['rol
 							?>
 						</td>
 					</tr>
+					<?php endif; ?>
 				</table>
 				<p>
-					<?php if(!isset($_SESSION['autenticado']) && $_SESSION['rol']== 'Administrador'): ?>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol']== 'Administrador'): ?>
 					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
 					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
 					<?php endif; ?>
