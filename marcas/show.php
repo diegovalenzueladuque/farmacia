@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] = 1 && $_SESSION['rol_id'] <= 3)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,6 +56,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 						<th>Nombre:</th>
 						<td><?php echo $res['nombre']; ?></td>
 					</tr>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 					<tr>
 						<th>Fecha de creación:</th>
 						<td>
@@ -74,12 +75,16 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 							?>
 						</td>
 					</tr>
+					<?php endif; ?>
 				</table>
 				<p>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
-					<a href="index.php" class="btn btn-link">Volver</a>
 					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
 					<a href="<?php echo BASE_URL . 'productos/addxmarca.php?id=' . $res['id']; ?>" class="btn btn-outline-primary">Agregar Producto</a>
+					<?php endif; ?>
+					<a href="index.php" class="btn btn-link">Volver</a>
+					
 				</p>
 			</div>
 		</div>

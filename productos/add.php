@@ -11,7 +11,7 @@ $productos = new prodModel;
 $categorias = new catModel;
 $marcas = new marcaModel;
 
-print_r($_POST);
+//print_r($_POST);
 if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	$nombre = strip_tags($_POST['nombre']);
 	$codigo = strip_tags($_POST['código']);
@@ -50,7 +50,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		}
 	}
 }
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Vendedor'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] = 1 && $_SESSION['rol_id'] <= 3)):
 ?>
 <!DOCTYPE html>
 <html>

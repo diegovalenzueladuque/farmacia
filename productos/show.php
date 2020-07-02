@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Vendedor'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 1) && ($_SESSION['rol_id'] <=3)):
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,6 +78,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 						<th>Descripción:</th>
 						<td><?php echo $res['descripcion']; ?></td>
 					</tr>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 					<tr>
 						<th>Fecha de creación:</th>
 						<td>
@@ -96,12 +97,16 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' || 'Ve
 							?>
 						</td>
 					</tr>
+					<?php endif; ?>
 				</table>
 				<p>
+					<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 					<a href="edit.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-warning">Editar</a>
-					<a href="index.php" class="btn btn-link">Volver</a>
 					<a href="del.php?id=<?php echo $res['id']; ?>" class="btn btn-outline-danger">Eliminar</a>
 					<a href="<?php echo BASE_URL . 'imagenes/addxProd.php?id=' . $res['id']; ?>" class="btn btn-outline-primary">Agregar Imagen</a>
+					<?php endif; ?>
+					<a href="index.php" class="btn btn-link">Volver</a>
+					
 				</p>
 			</div>
 			<div class="col-md-6 mt-3">

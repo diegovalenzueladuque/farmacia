@@ -8,7 +8,7 @@ require('../class/config.php');
 $usuarios = new usuarioModel;
 $res = $usuarios->getUsuarios();
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 1) && ($_SESSION['rol_id'] <=3)):
 ?>
 <!DOCTYPE html>
 <html>
