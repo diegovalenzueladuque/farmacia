@@ -30,7 +30,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 		}
 	}
 }
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')):
 ?>
 <!DOCTYPE html>
 <html>

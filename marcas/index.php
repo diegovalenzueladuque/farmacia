@@ -8,7 +8,7 @@ require('../class/config.php');
 $marcas = new marcaModel;
 $res = $marcas->getMarcas();
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')  || ($_SESSION['rol'] == 'Vendedor') || ($_SESSION['rol'] == 'Supervisor(a)')):
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,8 +41,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<?php if(isset($_GET['er'])): ?>
 					<p class="alert alert-danger">El dato no ha podido ser eliminado</p>
 				<?php endif; ?>
-
+				<?php if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')): ?>
 				<a href="add.php" class="btn btn-success">Nueva Marca</a>
+				<?php endif; ?>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>

@@ -53,7 +53,7 @@ if (isset($_GET['id'])) {
 }
 //print_r($_SESSION['rol']);exit;
 
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')):
 ?>
 <!DOCTYPE html>
 <html>

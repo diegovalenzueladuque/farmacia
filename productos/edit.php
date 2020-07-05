@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
 	}
 }
 
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')):
 
 ?>
 <!DOCTYPE html>
@@ -155,6 +155,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 	</div>
 </body>
 </html>
-<?php else: ?>
-	<p class="text-info">Acceso restringido</p>
-<?php endif; ?>
+<?php else:
+	header('Location: ' . BASE_URL . 'index.php');
+	endif;
+?>

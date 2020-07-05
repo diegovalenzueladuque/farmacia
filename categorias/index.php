@@ -8,7 +8,7 @@ require('../class/config.php');
 $categorias = new catModel;
 $res = $categorias->getCategorias();
 //print_r($res);exit;
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador') || ($_SESSION['rol'] == 'Vendedor') || ($_SESSION['rol'] == 'Supervisor(a)')):
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,8 +37,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'):
 				<?php if(isset($_GET['er'])): ?>
 					<p class="alert alert-danger">La categoría no se ha podido eliminar</p>
 				<?php endif; ?>
-
+				<?php if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')): ?>
 				<a href="add.php" class="btn btn-success">Nueva Categoría</a>
+				<?php endif; ?>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>

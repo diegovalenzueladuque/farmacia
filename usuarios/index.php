@@ -8,7 +8,7 @@ require('../class/config.php');
 $usuarios = new usuarioModel;
 $res = $usuarios->getUsuarios();
 //print_r($res);
-if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 1) && ($_SESSION['rol_id'] <=3)):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador') || ($_SESSION['rol'] == 'Supervisor(a)')):
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 1) && ($_SESSION['
 				<h3>Usuarios</h3>
 				<!--Valida o notifica que el registro se ha realizado-->
 				<?php include('../partials/mensajes.php'); ?>
-				<?php if($_SESSION['rol'] == 'Administrador'): ?>
+				<?php if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')): ?>
 
 					<a href="add.php" class="btn btn-success">Nuevo Usuario</a>
 

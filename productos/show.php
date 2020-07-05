@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 //print_r($res);
-if(isset($_SESSION['autenticado']) && ($_SESSION['rol_id'] >= 1) && ($_SESSION['rol_id'] <=3)):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador') || ($_SESSION['rol'] == 'Vendedor') || ($_SESSION['rol'] == 'Supervisor(a)')):
 ?>
 <!DOCTYPE html>
 <html>

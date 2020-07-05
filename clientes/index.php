@@ -8,7 +8,7 @@ require('../class/config.php');
 $clientes = new clienteModel;
 $res = $clientes->getClientes();
 //print_r($res);
-if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Vendedor'):
+if(isset($_SESSION['autenticado']) && ($_SESSION['rol'] == 'Administrador')|| ($_SESSION['rol'] == 'Vendedor') ):
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,8 +29,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador' OR 'Ve
 				<?php if(isset($_GET['m'])): ?>
 					<p class="alert alert-success">El cliente se ha registrado correctamente</p>
 				<?php endif; ?>
-
+				<?php if(isset($_SESSION['autenticado']) && $_SESSION['rol'] == 'Administrador'): ?>
 				<a href="add.php" class="btn btn-success">Nuevo Cliente</a>
+				<?php endif; ?>
 				<?php if(isset($res) && count($res)): ?>
 					<table class="table table-hover table-light" style="margin-top: 8px">
 						<?php foreach($res as $r): ?>

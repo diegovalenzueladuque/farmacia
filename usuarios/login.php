@@ -50,7 +50,8 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == 'si') {
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-image: url('../img/farmaciabg.png');background-repeat: no-repeat; background-attachment: fixed; 
+  background-size: 100% 100%;">
 	<div class="container-fluid">
 		<?php include('../partials/header.php'); ?><br><br>
 		<div class="d-flex justify-content-center h-100 bg-transparent">
